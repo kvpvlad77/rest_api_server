@@ -11,41 +11,61 @@ namespace model;
 use Core;
 class Users extends Core\BaseModel
 {
-    public $id;
-    public $username;
-    public $email;
-    public $birthday;
-    public $urlphoto;
-    public $password;
-    public $auth_key;
-    public $created_at;
-    public $flags;
+
+    public function _getUserInfoForAuthKey($authkey){
+
+            $select = array(
+                'where' => 'secret_key =' . $authkey . ''
+            );
+            $field = array('first_name','last_name', 'birthday','urlphoto', 'email');
+
+            $usersInfo = $this->_getFieldResult($select, $field); // получаем все строки
+
+            return $usersInfo; // выводим данные
 
 
-    public function execute($query, array $params=null){
 
-        if(is_null($params)){
-            $result = $this->pdo->query($query);
-            return $result->fetch();
-        }
-        $result = $this->pdo->prepare($query);
-        $result->execute($params);
-        return $result->fetch();
+
     }
-
-    public function _getAuthKey($authkey){
+    public function _getFullUserInfoForAuthKey($authkey){
+        if($authkey):
         $select = array(
-            'where' => 'auth_key ='.$authkey.''
+            'where' => 'secret_key ='.$authkey.''
         );
 
         $usersInfo = $this->_getResult($select); // получаем все строки
 
         return $usersInfo; // выводим данные
-
+         endif;
     }
+
+
     public function _addUser()
     {
-        $this->save();
+     return $this->save();
+
+    }
+
+    public function _EditUser()
+    {
+        return $this->update();
+    }
+
+    protected function _getDecodeJson($json){
+
+        $data = json_decode(json_encode($json),true);
+        return $data;
+    }
+
+    protected function _SetHashPassword($passwod){
+
+        $hash = password_hash($passwod, PASSWORD_DEFAULT);
+        return $hash;
+    }
+
+    protected  function _GetOneRow(){
+
+        $this->getOneRow();
     }
 
 }

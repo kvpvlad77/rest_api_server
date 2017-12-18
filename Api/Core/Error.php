@@ -25,6 +25,7 @@ class Error
 
     public function OtherErrorCatcher($errno, $errstr)
     {
+
         // контроль ошибок:
         // - записать в лог
         return false;
@@ -37,7 +38,7 @@ class Error
             if($error['type'] == E_ERROR
                 || $error['type'] == E_PARSE
                 || $error['type'] == E_COMPILE_ERROR
-                || $error['type'] == E_CORE_ERROR  || $error['type'] == E_RECOVERABLE_ERROR)//||$error['type'] ==E_NOTICE)
+                || $error['type'] == E_CORE_ERROR  || $error['type'] == E_RECOVERABLE_ERROR )//||$error['type'] ==E_NOTICE)
             {
                 ob_end_clean();	// сбросить буфер, завершить работу буфера
 
@@ -59,5 +60,7 @@ class Error
             //ob_end_flush();	// вывод буфера, завершить работу буфера
         }
     }
+
+
 }
 

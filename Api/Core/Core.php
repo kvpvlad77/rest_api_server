@@ -23,7 +23,7 @@ class Core
     {
         static::$router = new Core\Router();
         static::$Default_core = new Core\Default_Core();
-        static::$db = new model\Users('users');
+       // static::$db = new model\Users('users');
 
 
     }

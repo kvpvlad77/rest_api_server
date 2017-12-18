@@ -1,58 +1,54 @@
 <?php
 namespace Controllers;
 use Core;
+use Couchbase\Exception;
+use model;
 class Api extends \Core\Controller
 {
 
 
     public function login($data)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $sequential = array("a" => "1", "b" => "2", "c" => "3", "d" => "4", "e" => "65");
-            $sql = "SELECT id,username FROM users";
-            $list = Core::$db->execute($sql);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
 
 
-            return $this->render($list);
-        }
+
+            return $this->render();
+        endif;
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE'):
-            $sequential = array("a" => "1", "b" => "2", "c" => "3", "d" => "4", "e" => "65");
-            $sql = "SELECT id,username FROM users";
-            $list = Core::$db->execute($sql);
 
 
-            return $this->render($list);
+            return $this->render();
         endif;
 
         return $this->Bad_Request();
-    }
-
-    public function Users($data)
-    {
+        }
+   //Получение личных данных по secret_key GET
+        public function Users($data)
+        {
         if ('GET' === $this->REQUEST_METHOD()) {
+            if ($this->_GetSecretKey($data)!=1) {
 
-            $list =Core::$db->_getAuthKey("'Gw5nCCnbFxMuXo6aY_kfO85zjBuUYUHi'");
-            parse_str($data[0], $output);
-
-            Core::$db->id='';
-            Core::$db->username=$output["name"];
-            Core::$db->email=$output["email"];
-            Core::$db->_addUser();
-
-            return $this->render($list);
+            $infouser = new \model\GetInfoUser();
+            return $this->render($infouser->GetInfoUser("'" . $this->_GetSecretKey($data) . "'"));
         }
+          http_response_code(401);
+           return $this->render(array('401' => 'Unauthorized'));
+
+
+        }
+      //Авторизация пользователей POST
         if ('POST' === $this->REQUEST_METHOD()) {
-            $list =Core::$db->_getAuthKey("'Gw5nCCnbFxMuXo6aY_kfO85zjBuUYUHi'");
 
-            return $this->render($list);
+            $params =new \model\Registration();
 
-            return $this->render($_POST);
+            return $this->render($params->Registration($_POST));
         }
-
-
+       //Редактирование личных данных PUT
          if ('PUT' === $this->REQUEST_METHOD()):
+            $params =new \model\EditorUser();
 
-            return $this->render($this->getContent());
+            return $this->render($params->edit($this->getContent()));
          endif;
 
 
@@ -68,18 +64,15 @@ class Api extends \Core\Controller
         print_r($data);
             file_put_contents ( 'Upload/2.jpg', file_get_contents('php://input') );
 
-            $list =Core::$db->_getAuthKey("'Gw5nCCnbFxMuXo6aY_kfO85zjBuUYUHi'");
+            $list =Core::$db->_getAuthKey("'463e4eca7e819aa8ca9'");
 
             return $this->render($list);
             // создаем запрос
 
-
-            return $this->render($list);
-
        endif;
 
         if ('DELETE' === $this->REQUEST_METHOD()):
-            $list =Core::$db->_getAuthKey("'Gw5nCCnbFxMuXo6aY_kfO85zjBuUYUHi'");
+            $list =Core::$db->_getAuthKey("'463e4eca7e819aa8ca9'");
 
 
             return $this->render($this->getContent());

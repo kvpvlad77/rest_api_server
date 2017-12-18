@@ -15,25 +15,31 @@
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `birthday` date NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `birthday` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `urlphoto` text COLLATE utf8_unicode_ci NOT NULL,
-  `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `secret_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `flags` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=304 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы blog.users: ~4 rows (приблизительно)
+-- Дамп данных таблицы blog.users: ~6 rows (приблизительно)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT IGNORE INTO `users` (`id`, `username`, `email`, `birthday`, `urlphoto`, `password_hash`, `auth_key`, `created_at`, `updated_at`, `flags`) VALUES
-	(1, 'galier', 'galier@mail.ru', '0000-00-00', '', '$2y$10$0lzvwqHGpd1ZK0sld9QqDOTMkDBBGTk7vq3rm8qiszhv3vNoa5vvS', 'Gw5nCCnbFxMuXo6aY_kfO85zjBuUYUHi', 1493021443, 1493021443, 0),
-	(2, 'kasvit77', 'kasvit77@yandex.ru', '0000-00-00', '', '$2y$10$iMPSB1Xp76geMxa81qPJAOcUk8nykJM2OkXBx1QqCjzrSEQR0EVQi', '463e4eca7e819aa8ca9', 1493648266, 1493653411, 0),
-	(24, 'vitun', 'test@mm.ru', '0000-00-00', '', '', '', 0, 0, 0),
-	(26, 'vitun', 'test1@mm.ru', '0000-00-00', '', '', '', 0, 0, 0);
+INSERT IGNORE INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `birthday`, `urlphoto`, `password_hash`, `secret_key`, `created_at`, `updated_at`, `flags`) VALUES
+	(2, 'kasvit77', 'kasvit77@yandex.ru', '', '', '0000-00-00', '', '$2y$10$iMPSB1Xp76geMxa81qPJAOcUk8nykJM2OkXBx1QqCjzrSEQR0EVQi', '463e4eca7e819aa8ca9', 1493648266, 1493653411, 0),
+	(290, 'yarikkasggg', 'yarik5yy5@mail.ru', 'Yarikshh', '', '2017-12-17', '', '', '563e4eca7e819aa8ca9', 2017, 0, 0),
+	(293, 'rttetertt', 'yarirtettry5@mail.ru', '', '', '2017-12-17', '', '', '543e4eca7e819aa8ca3', 2017, 0, 0),
+	(296, 'Kasianov', 'reerer@eer.ru', 'dsfsdsffs', '', '2017-12-17', '', '', '', 2017, 0, 0),
+	(298, 'vitalik', 'yandex@fgg.ru', 'Виталик', '', '2017-12-17', '', '$2y$10$Jg73uGEDpVSnvYogbPUI1um65JFAkMR82pj5NT.1FM0pvlE10tpdS', '463e4eca7e419aa8ca9', 2017, 0, 0),
+	(301, 'viktor', 'kvpvlad77@gmail.ru', 'Виталик', '', '0000-00-00', '', '$2y$10$RgHV1UDCXJ/XkDRsF20R2.4O7nK6fh8RUQZAxgJWVF/yF86//WrwG', NULL, 2017, 0, 0),
+	(303, 'Вася', 'yarik3333@mail.ru', 'Василий', '', '23/12/1977', '', '$2y$10$ivf3/acM0KggfjHIf1qG8usNGVxauI26WhgFxl8n/DcWILekuEPia', NULL, 2017, 0, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

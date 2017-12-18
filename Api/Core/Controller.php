@@ -66,4 +66,14 @@ class Controller
         endif;
 
     }
+
+    public function _GetSecretKey($data){
+
+        parse_str($data[0], $output);
+        if(!empty($output['secret_key'])) {
+        return $output['secret_key'];
+        }
+        return 1;
+
+    }
 }
